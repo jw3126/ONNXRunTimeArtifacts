@@ -54,7 +54,7 @@ function create_tarballs()
             # On windows dlopen requires the right permissions for the stuff
             # in the tar file
             # https://github.com/JuliaLang/julia/issues/38993
-            run(`chmod -R 777 $filestem`)
+            run(`chmod +x -R $filestem`)
             run(`tar czf $filename_tar $filestem`)
         end
     end
@@ -65,7 +65,7 @@ function create_artifact_toml()
         @info "adding artifact" artifact_name=item.artifact_name download_name=item.download_name
         filestem = splitext(item.download_name)[1]
         filename_tar = filestem * ".tgz"
-        prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v0.1.0"
+        prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v0.1.1"
         artifact_url = "$prefix/$filename_tar"
         add_artifact!(
             "Artifacts.toml",
