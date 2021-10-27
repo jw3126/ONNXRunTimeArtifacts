@@ -47,6 +47,7 @@ for item in items
             @info "Unzipping $filename"
             run(`unzip $filename`)
         end
+        run(`chmod -R 777 $filestem`)
         run(`tar czf $filename_tar $filestem`)
     end
 end
