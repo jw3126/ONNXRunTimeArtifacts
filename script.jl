@@ -40,6 +40,7 @@ for item in items
         download(url, filename)
     end
     filestem = splitext(filename)[1]
+    # Artifacts.jl supports only tar files, so we need to convert zip to tar
     filename_tar = filestem * ".tgz"
     if !ispath(filename_tar)
         @info "Converting $filename to tar"
@@ -47,6 +48,9 @@ for item in items
             @info "Unzipping $filename"
             run(`unzip $filename`)
         end
+        # On windows dlopen requires the right permissions for the stuff
+        # in the tar file
+        # https://github.com/JuliaLang/julia/issues/38993
         run(`chmod -R 777 $filestem`)
         run(`tar czf $filename_tar $filestem`)
     end
@@ -58,7 +62,7 @@ using ArtifactUtils
 for item in items
     filestem = splitext(item.download_name)[1]
     filename_tar = filestem * ".tgz"
-    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v0.1.0"
+    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v0.1.1"
     artifact_url = "$prefix/$filename_tar"
     add_artifact!(
         "Artifacts.toml",
