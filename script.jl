@@ -47,17 +47,30 @@ function create_tarballs()
         filename_tar = filestem * ".tgz"
         if !ispath(filename_tar)
             @info "Converting $filename to tar"
-            if !ispath(filestem)
-                @info "Unzipping $filename"
-                run(`unzip $filename`)
+            if ispath(filestem)
+                rm(filestem, recursive=true)
             end
+            @info "Unzipping $filename"
+            run(`unzip $filename`)
+            fix_permissions(filestem)
             # On windows dlopen requires the right permissions for the stuff
             # in the tar file
             # https://github.com/JuliaLang/julia/issues/38993
-            run(`chmod +x -R $filestem`)
+            # run(`chmod +x -R $filestem`)
             run(`tar czf $filename_tar $filestem`)
         end
     end
+end
+function fix_permissions(basedir)
+    run(`chmod 777 -R $basedir`)
+    #for (root, dirs, filenames) in walkdir(basedir)
+    #    for filename in filenames
+    #        path = joinpath(root, filename)
+    #        if splitext(path)[2] == ".dll"
+    #            run(`chmod 755 $path`)
+    #        end
+    #    end
+    #end
 end
 
 function create_artifact_toml()
@@ -65,7 +78,7 @@ function create_artifact_toml()
         @info "adding artifact" artifact_name=item.artifact_name download_name=item.download_name
         filestem = splitext(item.download_name)[1]
         filename_tar = filestem * ".tgz"
-        prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v0.1.1"
+        prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v1.9.0-rc4"
         artifact_url = "$prefix/$filename_tar"
         add_artifact!(
             "Artifacts.toml",
@@ -78,5 +91,5 @@ function create_artifact_toml()
     end
 end
 
-create_tarballs()
-#create_artifact_toml()
+#create_tarballs()
+create_artifact_toml(); cp("Artifacts.toml", joinpath(homedir(), ".julia", "dev", "ONNXRunTime", "Artifacts.toml"), force=true)
