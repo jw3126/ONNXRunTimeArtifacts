@@ -60,7 +60,7 @@ end
 function get_repacked_url(item)
     filestem = splitext(item.download_name)[1]
     filename_tar = filestem * ".tgz"
-    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/$(item.version)-rc1"
+    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/$(item.version)-rc2"
     "$prefix/$filename_tar"
 end
 
@@ -109,6 +109,7 @@ function fix_permissions(basedir)
     #end
 end
 
+# https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v1.13.1-rc2/onnxruntime-win-x64-1.13.1.zip
 function create_artifact_toml()
     for item in items
         artifact_url = get_artifact_url(item)
