@@ -27,16 +27,27 @@ items = [
     platform=Pkg.Artifacts.Platform("x86_64", "linux"),
     version=version,
    ),
-    (
-    artifact_name="onnxruntime_cpu",
-    download_name="onnxruntime-osx-x86_64-$version.tgz",
-    platform=Pkg.Artifacts.Platform("x86_64", "macos"),
-    version=version,
-   ),
-    (
+   #  (
+   #  artifact_name="onnxruntime_cpu",
+   #  download_name="onnxruntime-osx-x86_64-$version.tgz",
+   #  platform=Pkg.Artifacts.Platform("x86_64", "macos"),
+   #  version=version,
+   # ),
+   #  (
+   #  artifact_name="onnxruntime_cpu",
+   #  download_name="onnxruntime-osx-universal2-$version.tgz",
+   #  platform=Pkg.Artifacts.Platform("x86_64", "macos"),
+   #  version=version,
+   (
     artifact_name="onnxruntime_cpu",
     download_name="onnxruntime-osx-universal2-$version.tgz",
     platform=Pkg.Artifacts.Platform("x86_64", "macos"),
+    version=version,
+   ),
+   (
+    artifact_name="onnxruntime_cpu",
+    download_name="onnxruntime-osx-universal2-$version.tgz",
+    platform=Pkg.Artifacts.Platform("aarch64", "macos"),
     version=version,
    ),
 ]
@@ -60,10 +71,9 @@ end
 function get_repacked_url(item)
     filestem = splitext(item.download_name)[1]
     filename_tar = filestem * ".tgz"
-    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/$(item.version)-rc2"
+    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v$(item.version)-rc2"
     "$prefix/$filename_tar"
 end
-
 
 function create_tarballs()
     for item in items
