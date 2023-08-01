@@ -1,7 +1,7 @@
 using Pkg
 using ArtifactUtils
 
-version = "1.13.1"
+version = "1.15.1"
 items = [
     (
     artifact_name="onnxruntime_cpu",
