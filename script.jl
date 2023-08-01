@@ -1,7 +1,7 @@
 using Pkg
 using ArtifactUtils
 
-version = "1.13.1"
+version = "1.15.1"
 items = [
     (
     artifact_name="onnxruntime_cpu",
@@ -119,7 +119,7 @@ function fix_permissions(basedir)
     #end
 end
 
-# https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v1.13.1-rc2/onnxruntime-win-x64-1.13.1.zip
+
 function create_artifact_toml()
     for item in items
         artifact_url = get_artifact_url(item)
