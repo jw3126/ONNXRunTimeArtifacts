@@ -1,7 +1,7 @@
 using Pkg
 using ArtifactUtils
 
-version = "1.15.1"
+version = "1.20.1"
 items = [
     (
     artifact_name="onnxruntime_cpu",
@@ -71,7 +71,7 @@ end
 function get_repacked_url(item)
     filestem = splitext(item.download_name)[1]
     filename_tar = filestem * ".tgz"
-    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v$(item.version)-rc2"
+    prefix = "https://github.com/jw3126/ONNXRunTimeArtifacts/releases/download/v$(item.version)-rc1"
     "$prefix/$filename_tar"
 end
 
