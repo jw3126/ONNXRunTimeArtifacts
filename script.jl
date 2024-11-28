@@ -46,7 +46,7 @@ items = [
    ),
    (
     artifact_name="onnxruntime_cpu",
-    download_name="onnxruntime-osx-universal2-$version.tgz",
+    download_name="onnxruntime-osx-arm64-$version.tgz",
     platform=Pkg.Artifacts.Platform("aarch64", "macos"),
     version=version,
    ),
