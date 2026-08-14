@@ -1,5 +1,0 @@
-*.tgz
-*.zip
-Artifacts.toml
-onnxruntime*
-Manifest.toml
